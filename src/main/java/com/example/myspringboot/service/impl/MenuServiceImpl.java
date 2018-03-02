@@ -26,16 +26,26 @@ public class MenuServiceImpl implements MenuService {
 		boolean hasMenu = redisTemplate.hasKey("menu");
 		List<Menu> list = new ArrayList<Menu>();
 		if(hasMenu){
-			list = redisTemplate.opsForList().range("menu",0,-1);
+			list = (List<Menu>)redisTemplate.opsForList().range("menu",0,-1).get(0);
 		}else {
-		list = menuMapper.getMenu();
+		    list = menuMapper.getMenu();
+		    if(!list.isEmpty()) {
+				redisTemplate.opsForList().rightPush("menu", list);
+			}
 		}
 		return list;
 	}
 	@Override
 	public List<Menu> getSubMenu(int mid) {
 		// TODO Auto-generated method stub
-		List<Menu>	list = menuMapper.getSubMenu(mid);
+		boolean hassubMenu =redisTemplate.hasKey("submenu"+mid);
+		List<Menu> list = new ArrayList<Menu>();
+		if(hassubMenu){
+            list = (List<Menu>)redisTemplate.opsForList().range("submenu"+mid,0,-1).get(0);
+		}else {
+			list = menuMapper.getSubMenu(mid);
+			redisTemplate.opsForList().rightPush("submenu"+mid,list);
+		}
 		return list;
 	}
 	@Override
