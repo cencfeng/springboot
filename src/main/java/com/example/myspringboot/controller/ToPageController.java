@@ -10,7 +10,7 @@ public class ToPageController {
 
 	@RequestMapping(value = "{pageName1}")  
     public ModelAndView toPage(@PathVariable("pageName1") String pageName1) {  
-        ModelAndView mv = new ModelAndView(pageName1);  
+        ModelAndView mv = new ModelAndView(pageName1);
         return mv;  
     }  
 }

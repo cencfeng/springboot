@@ -1,16 +1,14 @@
 package com.example.myspringboot.service.impl;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
 import com.example.myspringboot.entity.Menu;
 import com.example.myspringboot.mapper.MenuMapper;
-
 import com.example.myspringboot.service.MenuService;
+
 @Service
 public class MenuServiceImpl implements MenuService {
 	@Autowired
