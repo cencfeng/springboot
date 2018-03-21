@@ -15,4 +15,6 @@ public interface DormitoryService {
 	//分页
 	PageInfo<UserDetail> getDormitoryliveinfo(String strDormitorynumber, String strRoomnumber, Integer currentPage, Integer pageSize);
 	void applyDormitory(String username, String name, String dormitory, String roomNumber);
+
+	List<UserDetail> getTest();
 }

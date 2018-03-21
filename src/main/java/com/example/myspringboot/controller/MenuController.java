@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.myspringboot.entity.Menu;
 import com.example.myspringboot.service.MenuService;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/menu")
@@ -16,13 +17,13 @@ public class MenuController {
 
 	@Autowired
 	MenuService menuService;
-	@RequestMapping("/getMenu")
+	@RequestMapping("/getmenu")
 	@ResponseBody
 	public List<Menu> getMenu(){
 		List<Menu> list = menuService.getMenu();
 		return list;
 	}
-	@RequestMapping("/getSubMenu")
+	@RequestMapping("/getsubmenu")
 	@ResponseBody
 	public List<Menu> getSubMenu(int mid){
 		List<Menu> list = menuService.getSubMenu(mid);
@@ -38,9 +39,5 @@ public class MenuController {
 	public void delMenu(int mid){
 		menuService.delMenu(mid);
 	}
-	@RequestMapping("/menutest")
-	@ResponseBody
-	public List<Menu> getMenu2(){
-		return menuService.getMenu2();
-	}
+
 }

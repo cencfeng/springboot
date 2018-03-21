@@ -14,4 +14,10 @@ public class UserServiceImpl implements UserService {
     public User getUser(User user) {
         return userMapper.getUser(user);
     }
+
+    @Override
+    public User getByUserName(String username) {
+        return userMapper.getByUserName(username);
+    }
+
 }

@@ -2,7 +2,6 @@ package com.example.myspringboot.entity;
 
 import java.io.Serializable;
 
-
 public class Menu implements Serializable{
 	private int id;
 	private String m_name;

@@ -1,6 +1,7 @@
 package com.example.myspringboot.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class UserDetail implements Serializable{
 
@@ -15,9 +16,18 @@ public class UserDetail implements Serializable{
 	private String phone;
 	private String email;
 	private String ic_card;
+	private Date create_date;
 	private Dept dept;
 	private Dormitory dormitory;
-	
+
+	public Date getCreate_date() {
+		return create_date;
+	}
+
+	public void setCreate_date(Date create_date) {
+		this.create_date = create_date;
+	}
+
 	public Dept getDept() {
 		return dept;
 	}

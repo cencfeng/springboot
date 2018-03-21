@@ -4,4 +4,7 @@
     <select id="getUser" parameterType="User" resultType="User">
         select * from b_login where username = #{username} and binary password = #{password}
     </select>
+    <select id="getByUserName" parameterType="String" resultType="User">
+        select *from b_login WHERE username=#{username}
+    </select>
 </mapper>

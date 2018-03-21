@@ -30,8 +30,7 @@ public class DormitoryServiceImpl implements DormitoryService {
 	}
 
 	@Override
-	public PageInfo<UserDetail
-			> getDormitoryliveinfo(String strDormitorynumber, String strRoomnumber,Integer currentPage,Integer pageSize) {
+	public PageInfo<UserDetail> getDormitoryliveinfo(String strDormitorynumber, String strRoomnumber,Integer currentPage,Integer pageSize) {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(currentPage,pageSize);
 		List<UserDetail> list =  dormitoryMapper.getDormitoryliveinfo(strDormitorynumber, strRoomnumber);
@@ -50,5 +49,10 @@ public class DormitoryServiceImpl implements DormitoryService {
 	public void applyDormitory(String username, String name, String dormitory, String roomNumber) {
 		// TODO Auto-generated method stub
 		dormitoryMapper.applyDormitory(username, name, dormitory, roomNumber);
+	}
+
+	@Override
+	public List<UserDetail> getTest() {
+		return dormitoryMapper.getTest();
 	}
 }
