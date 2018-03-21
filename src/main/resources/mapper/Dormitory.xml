@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     <mapper namespace="com.example.myspringboot.mapper.DormitoryMapper">
+     <resultMap type="UserDetail" id="DormitoryliveInforMap">   
+        <result column="username" property="username" />  
+        <result column="name" property="name" />  
+        <result column="phone" property="phone" />  
+        <result column="tel" property="tel" />
+        <result column="email" property="email" />
+         <result column="create_date" property="create_date" />
+        <!-- 配置映射的关联用户信息 -->  
+        <!-- association：用于映射关联查询单个对象的信息 property：要将关联查询的用户信息映射到Orders中哪个属性 -->  
+        <association property="dormitory" javaType="com.example.myspringboot.entity.Dormitory">
+            <!-- id：关联查询用户的唯一标识 column：指定唯一标识用户信息的列 javaType：映射到user的哪个属性 -->  
+            <!-- <id column="user_id" property="id" />-->  
+            <result column="dormitory_number" property="dormitory_number" />  
+            <result column="room_number" property="room_number" />  
+            <result column="tnumber" property="tnumber" />
+            <result column="left_number" property="left_number" />    
+        </association>
+        <association property="dept" javaType="com.example.myspringboot.entity.Dept">
+             <result column="dept" property="dept" /> 
+        </association>  
+      </resultMap>  
+    
+    
+     
+          <select id="getDormitory" resultType="Dormitory">
+             SELECT dormitory_number FROM b_dormitory  GROUP BY dormitory_number
+         </select>
+         
+          <select id="getAllRoom" parameterType="String" resultType="Dormitory">
+                SELECT dormitory_number,room_number FROM b_dormitory where flag=1 and dormitory_number=#{strDormitory}
+         </select>
+         
+         <select id="getDormitoryliveinfo" parameterType="String" resultMap="DormitoryliveInforMap">
+             select a.username,a.name,a.phone,a.tel,a.email, b.dormitory_number,b.room_number,b.tnumber,b.left_number,c.dept
+               from b_user_detail a,b_dormitory b,b_dept c
+               where a.dormitory_id=b.dormitory_id
+               and a.dept_id=c.dept_id
+               and b.dormitory_number=#{strDormitorynumber}
+               and b.room_number=#{strRoomnumber}
+         </select>
+         
+          <select id="getLeftRoom" parameterType="String" resultType="Dormitory">
+                SELECT dormitory_number,room_number FROM b_dormitory  where dormitory_number=#{strDormitory} AND left_number>0 and flag=1
+         </select>
+
+    <select id="getTest"  resultMap="DormitoryliveInforMap">
+        select * from b_user_detail
+    </select>
+
+         <update id="applyDormitory" parameterType="String">    
+         
+               <selectKey keyProperty="dormitory_id" resultType="int" order="BEFORE">
+               select (select dormitory_id from b_dormitory where dormitory_number=#{dormitory}
+               and room_number=#{roomNumber})dormitory_id from dual
+             </selectKey>                            
+             update b_dormitory set left_number=left_number-1 where dormitory_number=#{dormitory} and room_number=#{roomNumber};  
+             update b_user_detail set dormitory_id = ${dormitory_id} where username=#{username}
+         </update>
+     </mapper>
